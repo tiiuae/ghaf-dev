@@ -24,6 +24,8 @@
           self.nixosModules.microvm
           self.nixosModules.reference-appvms
           self.nixosModules.reference-programs
+          self.nixosModules.givc-host
+
 
           ({
             pkgs,
@@ -79,14 +81,20 @@
                 microvm = {
                   netvm = {
                     enable = true;
-                    extraModules = import ./netvmExtraModules.nix {
-                      inherit lib pkgs microvm;
-                      configH = config;
-                    };
+                    extraModules = [
+                      self.nixosModules.givc-netvm
+                    ] ++
+                      (import ./netvmExtraModules.nix {
+                        inherit lib pkgs microvm;
+                        configH = config;
+                      });
                   };
 
                   adminvm = {
                     enable = true;
+                    extraModules = [
+                      self.nixosModules.givc-adminvm
+                    ];
                   };
 
                   idsvm = {
@@ -96,12 +104,15 @@
 
                   guivm = {
                     enable = true;
-                    extraModules =
+                    extraModules = [
+                      self.nixosModules.givc-guivm
+                    ] ++
                       # TODO convert this to an actual module
-                      import ./guivmExtraModules.nix {
-                        inherit lib pkgs self;
+                      (import ./guivmExtraModules.nix {
+                        inherit lib self;
+                        pkgs = pkgs.extend(self.overlays.givc-app);
                         configH = config;
-                      };
+                      });
                   };
 
                   audiovm = {
@@ -115,6 +126,9 @@
                   appvm = {
                     enable = true;
                     vms = config.ghaf.reference.appvms.enabled-app-vms;
+                    extraModules = [
+                      self.nixosModules.givc-appvm
+                    ];
                   };
                 };
               };

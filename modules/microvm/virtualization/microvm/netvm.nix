@@ -43,6 +43,7 @@
             withDebug = configHost.ghaf.profiles.debug.enable;
             withHardenedConfigs = true;
           };
+          givc.netvm.enable = true;
         };
 
         system.stateVersion = lib.trivial.release;

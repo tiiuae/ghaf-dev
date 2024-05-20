@@ -29,6 +29,8 @@
           hostAddress = "192.168.101.2";
           powerControl = pkgs.callPackage ../../packages/powercontrol {};
           privateSshKeyPath = configH.ghaf.security.sshKeys.sshKeyPath;
+          adminAddr = configH.ghaf.givc.adminConfig.addr;
+          adminPort = configH.ghaf.givc.adminConfig.port;
         in [
           {
             # The SPKI fingerprint is calculated like this:
@@ -37,32 +39,32 @@
             name = "Chromium";
             path =
               if configH.ghaf.virtualization.microvm.idsvm.mitmproxy.enable
-              then "${pkgs.openssh}/bin/ssh -i ${privateSshKeyPath} -o StrictHostKeyChecking=no chromium-vm run-waypipe chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --user-data-dir=/home/${configH.ghaf.users.accounts.user}/.config/chromium/Default --ignore-certificate-errors-spki-list=Bq49YmAq1CG6FuBzp8nsyRXumW7Dmkp7QQ/F82azxGU="
-              else "${pkgs.openssh}/bin/ssh -i ${privateSshKeyPath} -o StrictHostKeyChecking=no chromium-vm run-waypipe chromium --enable-features=UseOzonePlatform --ozone-platform=wayland";
+              then "${pkgs.givc-app}/bin/givc-app -name chromium-demo -ip ${adminAddr} -port ${adminPort}"
+              else "${pkgs.givc-app}/bin/givc-app -name chromium -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.icon-pack}/chromium.svg";
           }
 
           {
             name = "GALA";
-            path = "${pkgs.openssh}/bin/ssh -i ${privateSshKeyPath} -o StrictHostKeyChecking=no gala-vm run-waypipe gala --enable-features=UseOzonePlatform --ozone-platform=wayland";
-            icon = "${pkgs.icon-pack}/distributor-logo-android.svg";
+            path = "${pkgs.givc-app}/bin/givc-app -name gala -ip ${adminAddr} -port ${adminPort}";
+            icon = "${../../assets/icons/png/app.png}";
           }
 
           {
             name = "PDF Viewer";
-            path = "${pkgs.openssh}/bin/ssh -i ${privateSshKeyPath} -o StrictHostKeyChecking=no zathura-vm run-waypipe zathura";
+            path = "${pkgs.givc-app}/bin/givc-app -name zathura -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.icon-pack}/document-viewer.svg";
           }
 
           {
             name = "Element";
-            path = "${pkgs.openssh}/bin/ssh -i ${configH.ghaf.security.sshKeys.sshKeyPath} -o StrictHostKeyChecking=no element-vm run-waypipe element-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
+            path = "${pkgs.givc-app}/bin/givc-app -name element -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.icon-pack}/element-desktop.svg";
           }
 
           {
             name = "AppFlowy";
-            path = "${pkgs.openssh}/bin/ssh -i ${configH.ghaf.security.sshKeys.sshKeyPath} -o StrictHostKeyChecking=no appflowy-vm run-waypipe appflowy";
+            path = "${pkgs.givc-app}/bin/givc-app -name element -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.appflowy}/opt/data/flutter_assets/assets/images/flowy_logo.svg";
           }
 
@@ -80,19 +82,13 @@
 
           {
             name = "Shutdown";
-            path = "${powerControl.makePowerOffCommand {
-              inherit hostAddress;
-              inherit privateSshKeyPath;
-            }}";
+            path = "${pkgs.givc-app}/bin/givc-app -name poweroff -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.icon-pack}/system-shutdown.svg";
           }
 
           {
             name = "Reboot";
-            path = "${powerControl.makeRebootCommand {
-              inherit hostAddress;
-              inherit privateSshKeyPath;
-            }}";
+            path = "${pkgs.givc-app}/bin/givc-app -name reboot -ip ${adminAddr} -port ${adminPort}";
             icon = "${pkgs.icon-pack}/system-reboot.svg";
           }
 

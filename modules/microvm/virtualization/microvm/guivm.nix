@@ -45,6 +45,7 @@
             withDebug = configHost.ghaf.profiles.debug.enable;
             withHardenedConfigs = true;
           };
+          givc.guivm.enable = true;
         };
 
         systemd.services."waypipe-ssh-keygen" = let
