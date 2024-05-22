@@ -45,6 +45,9 @@ in {
           
           speedtest-cli
           iperf
+          # gRPC inter- and intra-vm testing
+          
+          grpcurl
           ;
       }
       ++

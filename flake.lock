@@ -2,6 +2,27 @@
   "nodes": {
     "crane": {
       "inputs": {
+        "nixpkgs": [
+          "givc",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1716156051,
+        "narHash": "sha256-TjUX7WWRcrhuUxDHsR8pDR2N7jitqZehgCVSy3kBeS8=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "7443df1c478947bf96a2e699209f53b2db26209d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crane_2": {
+      "inputs": {
         "flake-compat": [
           "lanzaboote",
           "flake-compat"
@@ -185,6 +206,34 @@
         "type": "github"
       }
     },
+    "givc": {
+      "inputs": {
+        "crane": "crane",
+        "devshell": [
+          "devshell"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1716462773,
+        "narHash": "sha256-byDQm6TBN1YI52ymnFhbIQ5N48iW0sUA0TEtQNIgi+U=",
+        "owner": "avnik",
+        "repo": "givc",
+        "rev": "a055bd7d7840e28c8809dce42e5d3bcc02c464be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "avnik",
+        "ref": "avnik/rust-proto",
+        "repo": "givc",
+        "type": "github"
+      }
+    },
     "jetpack-nixos": {
       "inputs": {
         "nixpkgs": [
@@ -207,7 +256,7 @@
     },
     "lanzaboote": {
       "inputs": {
-        "crane": "crane",
+        "crane": "crane_2",
         "flake-compat": [
           "flake-compat"
         ],
@@ -395,6 +444,7 @@
         "flake-parts": "flake-parts",
         "flake-root": "flake-root",
         "flake-utils": "flake-utils_2",
+        "givc": "givc",
         "jetpack-nixos": "jetpack-nixos",
         "lanzaboote": "lanzaboote",
         "microvm": "microvm",

@@ -22,6 +22,7 @@
           self.nixosModules.host
           self.nixosModules.lanzaboote
           self.nixosModules.microvm
+          self.nixosModules.givc-host
 
           ({
             pkgs,
@@ -107,6 +108,9 @@
 
                   adminvm = {
                     enable = true;
+                    extraModules = [
+                      self.nixosModules.givc-adminvm
+                    ];
                   };
 
                   idsvm = {
@@ -131,10 +135,6 @@
                 };
               };
 
-              host = {
-                networking.enable = true;
-                powercontrol.enable = true;
-              };
               # dendrite-pinecone service is enabled
               services.dendrite-pinecone.enable = true;
 

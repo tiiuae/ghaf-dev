@@ -36,7 +36,7 @@
         nixpkgs.hostPlatform.system = configHost.nixpkgs.hostPlatform.system;
 
         networking = {
-          firewall.allowedTCPPorts = [];
+          firewall.allowedTCPPorts = [9001];
           firewall.allowedUDPPorts = [];
         };
 
