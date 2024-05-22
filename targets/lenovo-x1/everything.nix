@@ -22,6 +22,7 @@
           self.nixosModules.host
           self.nixosModules.lanzaboote
           self.nixosModules.microvm
+          self.nixosModules.givc-host
 
           ({
             pkgs,
@@ -97,6 +98,9 @@
 
               virtualization.microvm.adminvm = {
                 enable = true;
+                extraModules = [
+                  self.nixosModules.givc-adminvm
+                ];
               };
 
               virtualization.microvm.idsvm = {

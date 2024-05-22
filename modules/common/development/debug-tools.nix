@@ -45,6 +45,9 @@ in
           iperf
           # Match perf version with kernel.
           config.boot.kernelPackages.perf
+
+          # gRPC inter- and intra-vm testing
+          grpcurl
         ]
         # TODO Can this be changed to platformPkgs to filter ?
         # LuaJIT (which is sysbench dependency) not available on RISC-V

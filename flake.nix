@@ -72,6 +72,15 @@
       };
     };
 
+    givc = {
+      url = "github:avnik/givc/avnik/rust-proto";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        devshell.follows = "devshell";
+      };
+    };
+
     # Dependencies used by other inputs
     systems.url = "github:nix-systems/default";
     devshell = {
