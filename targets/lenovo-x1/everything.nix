@@ -26,7 +26,6 @@
           self.nixosModules.reference-programs
           self.nixosModules.givc-host
 
-
           ({
             pkgs,
             config,

@@ -29,8 +29,8 @@
           hostAddress = "192.168.101.2";
           powerControl = pkgs.callPackage ../../packages/powercontrol {};
           privateSshKeyPath = configH.ghaf.security.sshKeys.sshKeyPath;
-          adminAddr = configH.ghaf.givc.adminConfig.addr;
-          adminPort = configH.ghaf.givc.adminConfig.port;
+          appStarterArgs = "-host admin-vm.ghaf -ip ${configH.ghaf.givc.adminConfig.addr} -port ${configH.ghaf.givc.adminConfig.port} -cert /etc/givc/gui-vm.ghaf-cert.pem -key /etc/givc/gui-vm.ghaf-key.pem";
+          # appStarterArgs = "-host admin-vm.ghaf -ip ${configH.ghaf.givc.adminConfig.addr} -port ${configH.ghaf.givc.adminConfig.port} -notls";
         in [
           {
             # The SPKI fingerprint is calculated like this:
@@ -39,32 +39,32 @@
             name = "Chromium";
             path =
               if configH.ghaf.virtualization.microvm.idsvm.mitmproxy.enable
-              then "${pkgs.givc-app}/bin/givc-app -name chromium-demo -ip ${adminAddr} -port ${adminPort}"
-              else "${pkgs.givc-app}/bin/givc-app -name chromium -ip ${adminAddr} -port ${adminPort}";
+              then "${pkgs.givc-app}/bin/givc-app -name chromium-demo ${appStarterArgs}"
+              else "${pkgs.givc-app}/bin/givc-app -name chromium ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/chromium.svg";
           }
 
           {
             name = "GALA";
-            path = "${pkgs.givc-app}/bin/givc-app -name gala -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name gala ${appStarterArgs}";
             icon = "${../../assets/icons/png/app.png}";
           }
 
           {
             name = "PDF Viewer";
-            path = "${pkgs.givc-app}/bin/givc-app -name zathura -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name zathura ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/document-viewer.svg";
           }
 
           {
             name = "Element";
-            path = "${pkgs.givc-app}/bin/givc-app -name element -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name element ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/element-desktop.svg";
           }
 
           {
             name = "AppFlowy";
-            path = "${pkgs.givc-app}/bin/givc-app -name element -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name element ${appStarterArgs}";
             icon = "${pkgs.appflowy}/opt/data/flutter_assets/assets/images/flowy_logo.svg";
           }
 
@@ -82,13 +82,13 @@
 
           {
             name = "Shutdown";
-            path = "${pkgs.givc-app}/bin/givc-app -name poweroff -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name poweroff ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/system-shutdown.svg";
           }
 
           {
             name = "Reboot";
-            path = "${pkgs.givc-app}/bin/givc-app -name reboot -ip ${adminAddr} -port ${adminPort}";
+            path = "${pkgs.givc-app}/bin/givc-app -name reboot ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/system-reboot.svg";
           }
 
