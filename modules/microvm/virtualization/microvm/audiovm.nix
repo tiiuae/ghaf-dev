@@ -38,6 +38,7 @@
             withDebug = configHost.ghaf.profiles.debug.enable;
           };
           services.audio.enable = true;
+          givc.audiovm.enable = true;
         };
 
         environment = {
@@ -60,14 +61,24 @@
           vcpu = 1;
           mem = 256;
           hypervisor = "qemu";
-          shares = [
-            {
-              tag = "ro-store";
-              source = "/nix/store";
-              mountPoint = "/nix/.ro-store";
-            }
-          ];
+          shares =
+            [
+              {
+                tag = "ro-store";
+                source = "/nix/store";
+                mountPoint = "/nix/.ro-store";
+              }
+            ]
+            ++ lib.optionals (config.ghaf.givc.enable && config.ghaf.givc.enableTls) [
+              {
+                tag = "givc";
+                source = "/etc/givc/${vmName}.ghaf";
+                mountPoint = "/tmp/givc";
+                proto = "virtiofs";
+              }
+            ];
           writableStoreOverlay = lib.mkIf config.ghaf.development.debug.tools.enable "/nix/.rw-store";
+
           qemu = {
             machine =
               {

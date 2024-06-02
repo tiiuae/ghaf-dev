@@ -29,8 +29,15 @@
           hostAddress = "192.168.101.2";
           powerControl = pkgs.callPackage ../../packages/powercontrol {};
           privateSshKeyPath = configH.ghaf.security.sshKeys.sshKeyPath;
-          appStarterArgs = "-host admin-vm.ghaf -ip ${configH.ghaf.givc.adminConfig.addr} -port ${configH.ghaf.givc.adminConfig.port} -cert /etc/givc/gui-vm.ghaf-cert.pem -key /etc/givc/gui-vm.ghaf-key.pem";
-          # appStarterArgs = "-host admin-vm.ghaf -ip ${configH.ghaf.givc.adminConfig.addr} -port ${configH.ghaf.givc.adminConfig.port} -notls";
+          appStarterArgs = builtins.replaceStrings ["\n"] [" "] ''
+            -host ${configH.ghaf.givc.adminConfig.name}.ghaf
+            -ip ${configH.ghaf.givc.adminConfig.addr}
+            -port ${configH.ghaf.givc.adminConfig.port}
+            -ca /run/givc/ca-cert.pem
+            -cert /run/givc/gui-vm.ghaf-cert.pem
+            -key /run/givc/gui-vm.ghaf-key.pem
+            ${lib.optionalString (!configH.ghaf.givc.enableTls) "-notls"}
+          '';
         in [
           {
             # The SPKI fingerprint is calculated like this:
@@ -39,7 +46,7 @@
             name = "Chromium";
             path =
               if configH.ghaf.virtualization.microvm.idsvm.mitmproxy.enable
-              then "${pkgs.givc-app}/bin/givc-app -name chromium-demo ${appStarterArgs}"
+              then "${pkgs.givc-app}/bin/givc-app -name chromium-ids ${appStarterArgs}"
               else "${pkgs.givc-app}/bin/givc-app -name chromium ${appStarterArgs}";
             icon = "${pkgs.icon-pack}/chromium.svg";
           }
