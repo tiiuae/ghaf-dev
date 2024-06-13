@@ -2,6 +2,27 @@
   "nodes": {
     "crane": {
       "inputs": {
+        "nixpkgs": [
+          "givc",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1718078026,
+        "narHash": "sha256-LbQabH6h86ZzTvDnaZHmMwedRZNB2jYtUQzmoqWQoJ8=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "a3f0c63eed74a516298932b9b1627dd80b9c3892",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crane_2": {
+      "inputs": {
         "flake-compat": [
           "lanzaboote",
           "flake-compat"
@@ -187,6 +208,7 @@
     },
     "givc": {
       "inputs": {
+        "crane": "crane",
         "devshell": [
           "devshell"
         ],
@@ -201,11 +223,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717339930,
-        "narHash": "sha256-zP3XG2CT0VW2VMjzx/IQmBsNnwaxWBPGbZ5cGXfCUiY=",
+        "lastModified": 1718286419,
+        "narHash": "sha256-GXeil5LEe09vZSoIbkNFXXyLTDxDvU++aSjjrMJJTl4=",
         "owner": "tiiuae",
         "repo": "ghaf-givc",
-        "rev": "eaa1a7eb85374c719d5a54f5d45c5f78b4fc0f52",
+        "rev": "819f630cc49628430bfea939c5716b7a66c608ff",
         "type": "github"
       },
       "original": {
@@ -236,7 +258,7 @@
     },
     "lanzaboote": {
       "inputs": {
-        "crane": "crane",
+        "crane": "crane_2",
         "flake-compat": [
           "flake-compat"
         ],

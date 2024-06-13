@@ -54,7 +54,7 @@
           {
             name = "GALA";
             path = "${pkgs.givc-app}/bin/givc-app -name gala ${appStarterArgs}";
-            icon = "${../../assets/icons/png/app.png}";
+            icon = "${pkgs.icon-pack}/distributor-logo-android.svg";
           }
 
           {
