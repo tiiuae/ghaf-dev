@@ -71,6 +71,12 @@
                 source = "/nix/store";
                 mountPoint = "/nix/.ro-store";
               }
+              {
+                # Add the givc-ssh public key to the microvm
+                tag = configHost.ghaf.security.sshKeys.givcSshPublicKeyName;
+                source = configHost.ghaf.security.sshKeys.givcSshPublicKeyDir;
+                mountPoint = configHost.ghaf.security.sshKeys.givcSshPublicKeyDir;
+              }
             ]
             ++ lib.optionals isGuiVmEnabled [
               {

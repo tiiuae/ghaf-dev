@@ -129,7 +129,7 @@
     };
 
     givc = {
-      url = "github:tiiuae/ghaf-givc";
+      url = "github:nerox9/ghaf-givc/systemd-wifi";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";

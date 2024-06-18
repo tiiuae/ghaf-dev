@@ -41,5 +41,20 @@ in {
         authorizedKeysCommandUser = "nobody";
       };
     };
+    givcSshPublicKeyName = mkOption {
+      type = types.str;
+      default = "givc-ssh-public-key";
+      description = "The name of the givc public key";
+    };
+    givcSshPublicKeyDir = mkOption {
+      type = types.str;
+      default = "/run/givc-ssh-public-key";
+      description = "The path to the givc public key";
+    };
+    givcSshPublicKeyFile = mkOption {
+      type = types.str;
+      default = "/run/givc-ssh-public-key/id_ed25519.pub";
+      description = "The givc public key";
+    };
   };
 }
